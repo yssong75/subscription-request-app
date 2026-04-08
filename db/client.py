@@ -15,8 +15,8 @@ def get_supabase() -> Client:
     """
     cfg = st.secrets.get("supabase", {})
     url = cfg.get("url", "")
-    # 앱에서는 anon_key 사용 (RLS 적용), 마이그레이션에서만 service_role_key 사용
-    key = cfg.get("anon_key", "") or cfg.get("service_role_key", "")
+    # service_role_key 로 RLS 우회 (모든 테이블 ENABLE ROW LEVEL SECURITY)
+    key = cfg.get("service_role_key", "") or cfg.get("anon_key", "")
 
     if not url or not key:
         st.error("secrets.toml 에 [supabase] url / anon_key 가 설정되지 않았습니다.")

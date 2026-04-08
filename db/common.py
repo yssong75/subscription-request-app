@@ -26,7 +26,8 @@ def _get_all_users() -> list[dict]:
         sb = get_supabase()
         res = sb.table("users").select("*").execute()
         return res.data or []
-    except Exception:
+    except Exception as e:
+        st.error(f"[DB오류] 사용자 조회 실패: {e}")
         return []
 
 
