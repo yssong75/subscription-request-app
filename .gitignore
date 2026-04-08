@@ -1,0 +1,66 @@
+# Streamlit secrets (민감 정보 - 절대 커밋 금지)
+.streamlit/secrets.toml
+
+# Google Cloud Platform 서비스 계정 키
+*.json
+
+# 마이그레이션 스크립트 (운영 서버 불필요)
+migrate_to_supabase.py
+migrate_excel_to_gsheet.py
+migrate_prepaid_postpaid.py
+init_branch_type.py
+init_users.py
+init_vlan_id.py
+add_signature_image.py
+
+# 로컬 실행 스크립트
+start_server.bat
+start_server_hidden.vbs
+
+# 테스트 이미지
+test_*.png
+
+# 백업/임시
+backup/
+exel/
+nul
+
+# 기타
+CLAUDE_GUIDE.md
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
