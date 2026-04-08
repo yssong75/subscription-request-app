@@ -8,7 +8,7 @@ import bcrypt
 import re
 from datetime import datetime, timedelta
 
-from modules.gsheet import get_user, register_user
+from db.adapter import get_user, register_user
 
 
 # 보안 설정

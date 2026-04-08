@@ -41,7 +41,7 @@ def korean_date_input(label, key, default=None):
     return _date(year, month_num, day)
 
 from config import WORK_TYPES, WORK_TIMES, BRANCH_TYPES, SECTIONS, PREPAID_USAGE_TYPES, PREPAID_SERVICE_NAMES, PREPAID_RATE_PLANS, POSTPAID_CATEGORIES, POSTPAID_SERVICE_NAMES, POSTPAID_RATE_PLANS
-from modules.gsheet import search_data, save_request, get_logs, generate_request_id, get_mailing_list, update_data_row, close_branch, generate_change_summary, add_data_row, get_all_data_stats, get_monthly_changes, get_closure_stats, update_user, get_user, get_section_data, search_section_data, add_section_row, close_section_row, get_section_stats, save_unified_log, get_rows_by_점번
+from db.adapter import search_data, save_request, get_logs, generate_request_id, get_mailing_list, update_data_row, close_branch, generate_change_summary, add_data_row, get_all_data_stats, get_monthly_changes, get_closure_stats, update_user, get_user, get_section_data, search_section_data, add_section_row, close_section_row, get_section_stats, save_unified_log, get_rows_by_점번
 from modules.gmail import send_email, create_email_html, create_report_html
 from modules.utils import validate_email, format_datetime, init_session_state, parse_email_from_display
 from modules.auth import init_auth_state, is_authenticated, show_login_page, logout, get_current_user, hash_password, verify_password, validate_password_strength
