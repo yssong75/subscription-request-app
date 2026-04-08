@@ -302,11 +302,14 @@ def show_branch_mail():
                             "변경시각": 발송시각,
                             "점번": request_data.get('점번', ''),
                             "지점명": request_data.get('지점명', ''),
+                            "전용회선": request_data.get('전용회선', ''),
+                            "비즈광랜": request_data.get('비즈광랜', ''),
                             "이전주소": request_data.get('변경전주소', ''),
                             "신규주소": request_data.get('변경후주소', ''),
                             "요청일": request_data.get('요청일', ''),
                             "작업시간": request_data.get('작업시간', ''),
-                            "작업구분": request_data.get('작업구분', '')
+                            "작업구분": request_data.get('작업구분', ''),
+                            "변경요약": f"#{request_data.get('작업구분','메일발송')}"
                         }
                         save_unified_log("본지점", log_data)
 
@@ -491,7 +494,7 @@ def show_branch_change():
                                 "요청일": "",
                                 "작업시간": "",
                                 "작업구분": "변경",
-                                "변경 요약": summary
+                                "변경요약": summary
                             }
                             save_unified_log("본지점", log_data)
                             st.success(f"DATA 시트가 업데이트되었습니다. ({summary})")
@@ -589,12 +592,14 @@ def show_branch_new():
                             "변경시각": format_datetime(),
                             "점번": nr_점번,
                             "지점명": nr_지점명,
+                            "전용회선": nr_전용회선,
+                            "비즈광랜": nr_비즈광랜,
                             "이전주소": "",
                             "신규주소": nr_주소1,
                             "요청일": "",
                             "작업시간": "",
                             "작업구분": "신규",
-                            "변경 요약": "#신규 등록" + (" (망분리 포함)" if nr_망분리_번호.strip() else "")
+                            "변경요약": "#신규 등록" + (" (망분리 포함)" if nr_망분리_번호.strip() else "")
                         }
                         save_unified_log("본지점", log_data)
                         st.success(f"신규 지점이 등록되었습니다! (점번: {nr_점번}, 지점명: {nr_지점명})" + (f" 망분리 회선도 등록됨." if nr_망분리_번호.strip() else ""))
@@ -660,7 +665,7 @@ def show_branch_closure():
                                 "요청일": str(cl_date),
                                 "작업시간": "",
                                 "작업구분": "폐쇄",
-                                "변경 요약": "#폐쇄 처리"
+                                "변경요약": "#폐쇄 처리"
                             }
                             save_unified_log("본지점", log_data)
                             st.success(f"**{target['지점명']}** 폐쇄 처리가 완료되었습니다.")

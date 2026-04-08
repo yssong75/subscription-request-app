@@ -134,7 +134,7 @@ def show_prepaid_new():
                             "점번": pp_서비스번호,
                             "지점명": pp_지점명,
                             "작업구분": "신규",
-                            "변경 요약": "#선불제 신규 등록"
+                            "변경요약": "#선불제 신규 등록"
                         })
                         st.success(f"선불제 회선이 등록되었습니다! (서비스번호: {pp_서비스번호})")
                     else:
@@ -195,7 +195,7 @@ def show_prepaid_cancel():
                                 "점번": target.get("서비스번호", ""),
                                 "지점명": target.get("지점명", ""),
                                 "작업구분": "해지",
-                                "변경 요약": "#선불제 해지"
+                                "변경요약": "#선불제 해지"
                             })
                             st.success(f"**{target.get('지점명', '')}** 해지 처리가 완료되었습니다.")
                             st.session_state.pp_cl_target = None
@@ -338,7 +338,7 @@ def show_postpaid_new():
                             "점번": pt_서비스번호,
                             "지점명": pt_지점명,
                             "작업구분": "신규",
-                            "변경 요약": f"#후불제 신규 등록 ({pt_구분})"
+                            "변경요약": f"#후불제 신규 등록 ({pt_구분})"
                         })
                         st.success(f"후불제 회선이 등록되었습니다! (서비스번호: {pt_서비스번호})")
                     else:
@@ -399,7 +399,7 @@ def show_postpaid_cancel():
                                 "점번": target.get("서비스번호", ""),
                                 "지점명": target.get("지점명", ""),
                                 "작업구분": "해지",
-                                "변경 요약": f"#후불제 해지 ({target.get('구분', '')})"
+                                "변경요약": f"#후불제 해지 ({target.get('구분', '')})"
                             })
                             st.success(f"**{target.get('지점명', '')}** 해지 처리가 완료되었습니다.")
                             st.session_state.pt_cl_target = None
