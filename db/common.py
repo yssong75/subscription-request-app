@@ -130,15 +130,20 @@ def generate_request_id() -> str:
     return f"REQ{datetime.now().strftime('%Y%m%d%H%M%S')}"
 
 
+_REQUESTS_COLS = {
+    "요청id", "점번", "지점명", "전용회선", "vlan_id", "비즈광랜", "속도",
+    "ap수", "상위국", "변경전주소", "변경후주소", "작업구분", "요청일",
+    "작업시간", "담당자", "전화번호", "요청사항", "거리층", "발송여부", "발송시각",
+}
+
 def _clean_request(d: dict) -> dict:
-    """청약 요청 dict 정리 (DB 컬럼명 맞춤)"""
+    """청약 요청 dict 정리 (DB 컬럼명 맞춤, 존재하지 않는 컬럼 제거)"""
     rename = {"Vlan ID": "vlan_id", "AP수": "ap수"}
-    skip = {"id", "등록일", "수정일"}
     result = {}
     for k, v in d.items():
-        if k in skip:
-            continue
         db_k = rename.get(k, k)
+        if db_k not in _REQUESTS_COLS:
+            continue
         result[db_k] = str(v) if (v is not None and str(v).strip()) else None
     return result
 
@@ -147,12 +152,21 @@ def _clean_request(d: dict) -> dict:
 # 변경 로그
 # ══════════════════════════════════════════════════════════════════
 
+_CHANGE_LOGS_COLS = {
+    "분류", "점번", "지점명", "이전주소", "신규주소", "요청일",
+    "작업시간", "작업구분", "변경요약", "전용회선", "비즈광랜", "등록일",
+}
+
 def save_log(data_dict: dict) -> bool:
     """변경 로그 저장"""
     try:
         sb = get_supabase()
-        row = {k: v for k, v in data_dict.items() if k not in ("id", "수정일")}
-        row.setdefault("분류", "본지점")
+        # 변경시각 → 등록일 매핑 (기존 gsheet 호환)
+        raw = dict(data_dict)
+        if "변경시각" in raw:
+            raw.setdefault("등록일", raw.pop("변경시각"))
+        raw.setdefault("분류", "본지점")
+        row = {k: v for k, v in raw.items() if k in _CHANGE_LOGS_COLS}
         sb.table("change_logs").insert(row).execute()
         _get_all_logs.clear()
         get_monthly_changes.clear()
